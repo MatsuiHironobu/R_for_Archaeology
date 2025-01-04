@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 データの編集 | 考古学のための「R」入門</title>
+  <meta name="description" content="3 データの編集 | 考古学のための「R」入門" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 データの編集 | 考古学のための「R」入門" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 データの編集 | 考古学のための「R」入門" />
+  
+  
+  
+
+<meta name="author" content="松井　広信" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="統計解析言語r.html"/>
+<link rel="next" href="ggplot2を使用したデータビジュアライゼーション.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> はじめに</a></li>
+<li class="chapter" data-level="2" data-path="統計解析言語r.html"><a href="統計解析言語r.html"><i class="fa fa-check"></i><b>2</b> 統計解析言語「R」</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="統計解析言語r.html"><a href="統計解析言語r.html#rとは"><i class="fa fa-check"></i><b>2.1</b> 「R」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="統計解析言語r.html"><a href="統計解析言語r.html#rとrstudioの導入"><i class="fa fa-check"></i><b>2.2</b> 「R」と「RStudio」の導入</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="データの編集.html"><a href="データの編集.html"><i class="fa fa-check"></i><b>3</b> データの編集</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="データの編集.html"><a href="データの編集.html#概要"><i class="fa fa-check"></i><b>3.1</b> 概要</a></li>
+<li class="chapter" data-level="3.2" data-path="データの編集.html"><a href="データの編集.html#rの演算子について"><i class="fa fa-check"></i><b>3.2</b> 「R」の演算子について</a></li>
+<li class="chapter" data-level="3.3" data-path="データの編集.html"><a href="データの編集.html#tidy-data"><i class="fa fa-check"></i><b>3.3</b> tidy data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="データの編集.html"><a href="データの編集.html#tidy-dataに変換する"><i class="fa fa-check"></i><b>3.3.1</b> tidy dataに変換する</a></li>
+<li class="chapter" data-level="3.3.2" data-path="データの編集.html"><a href="データの編集.html#クロス集計表の変換"><i class="fa fa-check"></i><b>3.3.2</b> クロス集計表の変換</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="データの編集.html"><a href="データの編集.html#データを取り込む"><i class="fa fa-check"></i><b>3.4</b> データを取り込む</a></li>
+<li class="chapter" data-level="3.5" data-path="データの編集.html"><a href="データの編集.html#filterによる行の絞り込み"><i class="fa fa-check"></i><b>3.5</b> <code>filter()</code>による行の絞り込み</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="データの編集.html"><a href="データの編集.html#一条件で絞り込む"><i class="fa fa-check"></i><b>3.5.1</b> 一条件で絞り込む</a></li>
+<li class="chapter" data-level="3.5.2" data-path="データの編集.html"><a href="データの編集.html#複数条件による絞り込み"><i class="fa fa-check"></i><b>3.5.2</b> 複数条件による絞り込み</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="データの編集.html"><a href="データの編集.html#selectによる列の操作"><i class="fa fa-check"></i><b>3.6</b> <code>select()</code>による列の操作</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="データの編集.html"><a href="データの編集.html#列を抽出削除する"><i class="fa fa-check"></i><b>3.6.1</b> 列を抽出、削除する</a></li>
+<li class="chapter" data-level="3.6.2" data-path="データの編集.html"><a href="データの編集.html#列の順番を入れ替える"><i class="fa fa-check"></i><b>3.6.2</b> 列の順番を入れ替える</a></li>
+<li class="chapter" data-level="3.6.3" data-path="データの編集.html"><a href="データの編集.html#列のリネーム"><i class="fa fa-check"></i><b>3.6.3</b> 列のリネーム</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="データの編集.html"><a href="データの編集.html#mutateによる列の編集"><i class="fa fa-check"></i><b>3.7</b> <code>mutate()</code>による列の編集</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="データの編集.html"><a href="データの編集.html#mutate-による列の追加"><i class="fa fa-check"></i><b>3.7.1</b> mutate( )による列の追加</a></li>
+<li class="chapter" data-level="3.7.2" data-path="データの編集.html"><a href="データの編集.html#場合分けによる列の編集"><i class="fa fa-check"></i><b>3.7.2</b> 場合分けによる列の編集</a></li>
+<li class="chapter" data-level="3.7.3" data-path="データの編集.html"><a href="データの編集.html#文字列の置き換え"><i class="fa fa-check"></i><b>3.7.3</b> 文字列の置き換え</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="データの編集.html"><a href="データの編集.html#概要表"><i class="fa fa-check"></i><b>3.8</b> <code>summarize()</code>による概要表</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html"><i class="fa fa-check"></i><b>4</b> ggplot2を使用したデータビジュアライゼーション</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#データ可視化の重要性"><i class="fa fa-check"></i><b>4.1</b> データ可視化の重要性</a></li>
+<li class="chapter" data-level="4.2" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#見た目を設定する"><i class="fa fa-check"></i><b>4.2</b> 見た目を設定する</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#日本語フォントを探す"><i class="fa fa-check"></i><b>4.2.1</b> 日本語フォントを探す</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#見た目の設定"><i class="fa fa-check"></i><b>4.2.2</b> 見た目の設定</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#ヒストグラム"><i class="fa fa-check"></i><b>4.3</b> ヒストグラム</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#ヒストグラムとは"><i class="fa fa-check"></i><b>4.3.1</b> ヒストグラムとは</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#複数のヒストグラムを表示する"><i class="fa fa-check"></i><b>4.3.2</b> 複数のヒストグラムを表示する</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#グラフの情報を取得する"><i class="fa fa-check"></i><b>4.3.3</b> グラフの情報を取得する</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#棒グラフ"><i class="fa fa-check"></i><b>4.4</b> 棒グラフ</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#棒グラフ-1"><i class="fa fa-check"></i><b>4.4.1</b> 棒グラフ</a></li>
+<li class="chapter" data-level="4.4.2" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#帯グラフ"><i class="fa fa-check"></i><b>4.4.2</b> 帯グラフ</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#円グラフ"><i class="fa fa-check"></i><b>4.5</b> 円グラフ</a></li>
+<li class="chapter" data-level="4.6" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#箱ひげ図"><i class="fa fa-check"></i><b>4.6</b> 箱ひげ図</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#箱ひげ図-1"><i class="fa fa-check"></i><b>4.6.1</b> 箱ひげ図</a></li>
+<li class="chapter" data-level="4.6.2" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#バイオリンプロットシナプロット"><i class="fa fa-check"></i><b>4.6.2</b> バイオリンプロット／シナプロット</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="ggplot2を使用したデータビジュアライゼーション.html"><a href="ggplot2を使用したデータビジュアライゼーション.html#折れ線グラフ"><i class="fa fa-check"></i><b>4.7</b> 折れ線グラフ</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="引用参考文献.html"><a href="引用参考文献.html"><i class="fa fa-check"></i><b>5</b> 引用参考文献</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">考古学のための「R」入門</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="データの編集" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> データの編集<a href="データの編集.html#データの編集" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="概要" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 概要<a href="データの編集.html#概要" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ここでは、準備したデータを取り込み、編集するための方法を紹介します。考古学研究でデータといえば、Microsoft社のExcelに記録したデータが思い浮かぶことでしょう。Excelは基本的な機能だけなら簡単な操作で表の作成・編集ができるだけでなく、広く使用されていることから複数の作業者間でのデータの共有等にも役に立つソフトです。一方、<code>神エクセル</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>という用語が端的に示すように、セルの書式をわざわざ文字列としたり、セルの結合や罫線機能などを駆使した見た目重視のファイルも散見され、データ分析に使用しにくいことも知られています。</p>
+<p>RではいくつかのパッケージでExcelファイル（<code>.xlsx</code>の拡張子で表示されるもの）を直接取り込むこともできますが、上記の理由から使いづらいことが考えられます。そこで、本稿ではプレーンなテキスト形式で、さまざまなアプリやソフトで使用することができるCSVファイル（<code>.csv</code>の拡張子で表示されるもの）を利用することが良いと考えています。幸いExcelにはCSVファイルで保存する機能があるため、これまでの研究で蓄積したデータも利用することができます。</p>
+<p>Rでデータを編集する際は<a href="https://www.tidyverse.org"><code>tidyverse</code></a>パッケージを使います。<a href="https://www.tidyverse.org"><code>tidyverse</code></a>はデータサイエンスのために設計されたRのパッケージ群で、<a href="https://ggplot2.tidyverse.org"><code>ggplot2</code></a>のほか、<a href="https://dplyr.tidyverse.org"><code>dplyr</code></a>、<a href="https://readr.tidyverse.org"><code>readr</code></a>、<a href="https://purrr.tidyverse.org"><code>purrr</code></a>、<a href="https://tibble.tidyverse.org"><code>tibble</code></a>、<a href="https://stringr.tidyverse.org"><code>stringr</code></a>、<a href="https://forcats.tidyverse.org"><code>forcats</code></a>といったパッケージが含まれています。これらは共通の基本的な設計思想、文法、データ構造を有しており、Rの標準的な表現方法（正規表現）よりも可読性の高いコードを用いてデータの前処理、可視化を実行することができます。Rでパッケージを読み込む際は<code>library()</code>関数を使います。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="データの編集.html#cb1-1" tabindex="-1"></a><span class="co"># `library()`でパッケージを読み込む</span></span>
+<span id="cb1-2"><a href="データの編集.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="rの演算子について" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 「R」の演算子について<a href="データの編集.html#rの演算子について" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>本題に入る前に、Rでよく使う演算子の説明をしておきます。<code>&lt;-</code>は代入演算子で、左辺に右辺を代入するために使用されます。数学の<span class="math inline">\(x=\)</span>をイメージすると良いと思います。<code>&lt;-</code>の代わりに<code>=</code>を使用することもできます。ここでは<code>fish</code>という箱に<code>test_data.csv</code>というファイルのデータを格納しています。</p>
+<p>また<code>%&gt;%</code>はパイプ演算子で、左辺の結果を右辺に受け渡す役割があり、コードを繋げて書くことができます。コードを記入するたびに適当な変数に代入する必要がなくなるため、可読性が高まり、効率的な作業を実現できます。<a href="http://adolfoalvarez.cl/blog/2021-09-16-plumbers-chains-and-famous-painters-the-history-of-the-pipe-operator-in-r/">“Plumbers, chains, and famous painters: The (updated) history of the pipe operator in R”</a><span class="citation">(Álvarez, 2021)</span>によると、2012年1月17日に<a href="https://stackoverflow.com"><code>Stack Overflow</code></a>で原型が誕生し、Stefan Bache氏が2013年12月30日に<code>plumbr</code>パッケージを公開し（2日後に<a href="https://magrittr.tidyverse.org"><code>magrittr</code></a>に改名）、その後<a href="https://dplyr.tidyverse.org"><code>dplyr</code></a>のパイプ演算子への統合、<code>Rstudio</code>でのショートカットの採用（<code>Ctrl / Command + Shift + M</code>）を経て、その利便性が注目されて急速に普及しました。現在では<a href="https://magrittr.tidyverse.org"><code>magrittr</code></a>もしくは<a href="https://www.tidyverse.org"><code>tidyverse</code></a>パッケージを読み込めば使用できます。</p>
+<p>2019年からはRの開発チームが<code>|&gt;</code>（ベースパイプ）を開発し、2021年5月にリリースされた<code>R 4.1.0</code>で本格的に実装され、その後改良が重ねられて<code>%&gt;%</code>と遜色ない機能に発展したため、現在ではユーザーのモードが<code>%&gt;%</code>から<code>|&gt;</code>に
+移りつつあるようです。（本書では切り替えが大変なので<code>%&gt;%</code>を利用します。）</p>
+</div>
+<div id="tidy-data" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> tidy data<a href="データの編集.html#tidy-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>まず初めに、人間が見やすいデータ形式と、Rをはじめとしたプログラミング言語で機械処理しやすいデータ形式が異なるということを理解しておく必要があります。例えば生徒の名前と教科、点数からなる表があるとします。</p>
+<table>
+<caption><span id="tab:wide-format">表 3.1: </span>横長型の表</caption>
+<thead>
+<tr class="header">
+<th align="left">生徒</th>
+<th align="right">国語</th>
+<th align="right">数学</th>
+<th align="right">英語</th>
+<th align="right">社会</th>
+<th align="right">理科</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A</td>
+<td align="right">85</td>
+<td align="right">90</td>
+<td align="right">75</td>
+<td align="right">85</td>
+<td align="right">82</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="right">92</td>
+<td align="right">88</td>
+<td align="right">80</td>
+<td align="right">90</td>
+<td align="right">85</td>
+</tr>
+<tr class="odd">
+<td align="left">C</td>
+<td align="right">78</td>
+<td align="right">95</td>
+<td align="right">85</td>
+<td align="right">88</td>
+<td align="right">90</td>
+</tr>
+<tr class="even">
+<td align="left">D</td>
+<td align="right">88</td>
+<td align="right">85</td>
+<td align="right">78</td>
+<td align="right">90</td>
+<td align="right">92</td>
+</tr>
+<tr class="odd">
+<td align="left">E</td>
+<td align="right">79</td>
+<td align="right">90</td>
+<td align="right">85</td>
+<td align="right">85</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td align="left">F</td>
+<td align="right">95</td>
+<td align="right">92</td>
+<td align="right">90</td>
+<td align="right">88</td>
+<td align="right">85</td>
+</tr>
+</tbody>
+</table>
+<p>表<a href="データの編集.html#tab:wide-format">3.1</a>のような1つの観測値に複数の変数が含まれる表形式を表を横長型（Wide Format）といいます。人間がみる場合はこの表形式が見やすく、教科書や論文で掲載されるものもこのような形式です。</p>
+<p>一方、表<a href="データの編集.html#tab:long-format">3.3</a>のような1つの観測値に1つの変数が含まれる表形式を縦長型（Long Format）といい、各列が異なる変数を示し、各行が1つの観測値（属性、数値）を表します。これが<a href="https://www.tidyverse.org"><code>tidyverse</code></a>でいう<strong>tidy data</strong>（整然データ）で、はじめHadley Wickhamが2014年に論文で定義が示され<span class="citation">(Wickham, 2014)</span>、“R for Data Science”<span class="citation">(Wickham &amp; Grolemund, 2017)</span>、“R for Data Science (2e)”<span class="citation">(Wickham et al., 2023)</span>で改訂されています（表<a href="データの編集.html#tab:definition">3.2</a>）。最新の定義を翻訳すると次の通りとなります。</p>
+<blockquote>
+<ul>
+<li>各変数は列であり、各列は変数である</li>
+<li>各観測値は行であり、各行は観測値である</li>
+<li>各変数はセルであり、各セルはひとつの値である<br />
+– <a href="https://r4ds.hadley.nz/data-tidy">Wickhamほか2023</a> より翻訳</li>
+</ul>
+</blockquote>
+<table>
+<caption><span id="tab:definition">表 3.2: </span>tidy dataの定義の変遷</caption>
+<colgroup>
+<col width="31%" />
+<col width="68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Wickham 2014</td>
+<td align="left">Each variable forms a column.</td>
+</tr>
+<tr class="even">
+<td align="left">Wickham 2014</td>
+<td align="left">Each observation forms a row.</td>
+</tr>
+<tr class="odd">
+<td align="left">Wickham 2014</td>
+<td align="left">Each type of observational unit forms a table.</td>
+</tr>
+<tr class="even">
+<td align="left">Wickham &amp; Grolemund 2017</td>
+<td align="left">Each variable must have its own column.</td>
+</tr>
+<tr class="odd">
+<td align="left">Wickham &amp; Grolemund 2017</td>
+<td align="left">Each observation must have its own row.</td>
+</tr>
+<tr class="even">
+<td align="left">Wickham &amp; Grolemund 2017</td>
+<td align="left">Each value must have its own cell.</td>
+</tr>
+<tr class="odd">
+<td align="left">Wickham et.al. 2023</td>
+<td align="left">Each variable is a column; each column is a variable.</td>
+</tr>
+<tr class="even">
+<td align="left">Wickham et.al. 2023</td>
+<td align="left">Each observation is a row; each row is an observation.</td>
+</tr>
+<tr class="odd">
+<td align="left">Wickham et.al. 2023</td>
+<td align="left">Each value is a cell; each cell is a single value.</td>
+</tr>
+</tbody>
+</table>
+<div id="tidy-dataに変換する" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> tidy dataに変換する<a href="データの編集.html#tidy-dataに変換する" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>横長型から縦長型に変換する時は、<a href="https://tidyr.tidyverse.org/reference/pivot_longer.html"><code>tidyr::pivot_longer</code></a>で変換することができます（表<a href="データの編集.html#tab:long-format">3.3</a>）。その逆を行いたい場合は、<a href="https://tidyr.tidyverse.org/reference/pivot_wider.html"><code>tidyr::pivot_wider</code></a>を使います（表<a href="データの編集.html#tab:wide-format2">3.4</a>）。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="データの編集.html#cb2-1" tabindex="-1"></a>student_data_tidy <span class="ot">&lt;-</span> student_data <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="データの編集.html#cb2-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">!</span>生徒,     <span class="co"># 動かすデータを選択（`!`で動かさないもの）</span></span>
+<span id="cb2-3"><a href="データの編集.html#cb2-3" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&quot;科目&quot;</span>,</span>
+<span id="cb2-4"><a href="データの編集.html#cb2-4" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&quot;点数&quot;</span>)</span>
+<span id="cb2-5"><a href="データの編集.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="データの編集.html#cb2-6" tabindex="-1"></a><span class="co"># htmlでキャプションを表示する場合。</span></span>
+<span id="cb2-7"><a href="データの編集.html#cb2-7" tabindex="-1"></a><span class="co"># wordで書き出す場合は{r tab.cap=&quot;&quot;}でいける。</span></span>
+<span id="cb2-8"><a href="データの編集.html#cb2-8" tabindex="-1"></a>student_data_tidy <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;横長型から縦長型の表へ&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:long-format">表 3.3: </span>横長型から縦長型の表へ</caption>
+<thead>
+<tr class="header">
+<th align="left">生徒</th>
+<th align="left">科目</th>
+<th align="right">点数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">国語</td>
+<td align="right">85</td>
+</tr>
+<tr class="even">
+<td align="left">A</td>
+<td align="left">数学</td>
+<td align="right">90</td>
+</tr>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">英語</td>
+<td align="right">75</td>
+</tr>
+<tr class="even">
+<td align="left">A</td>
+<td align="left">社会</td>
+<td align="right">85</td>
+</tr>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">理科</td>
+<td align="right">82</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="left">国語</td>
+<td align="right">92</td>
+</tr>
+<tr class="odd">
+<td align="left">B</td>
+<td align="left">数学</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="left">英語</td>
+<td align="right">80</td>
+</tr>
+<tr class="odd">
+<td align="left">B</td>
+<td align="left">社会</td>
+<td align="right">90</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="left">理科</td>
+<td align="right">85</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="データの編集.html#cb3-1" tabindex="-1"></a>student_data_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="データの編集.html#cb3-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> 科目, <span class="at">values_from =</span> 点数) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="データの編集.html#cb3-3" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;縦長型から再び横長型の表へ&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:wide-format2">表 3.4: </span>縦長型から再び横長型の表へ</caption>
+<thead>
+<tr class="header">
+<th align="left">生徒</th>
+<th align="right">国語</th>
+<th align="right">数学</th>
+<th align="right">英語</th>
+<th align="right">社会</th>
+<th align="right">理科</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A</td>
+<td align="right">85</td>
+<td align="right">90</td>
+<td align="right">75</td>
+<td align="right">85</td>
+<td align="right">82</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="right">92</td>
+<td align="right">88</td>
+<td align="right">80</td>
+<td align="right">90</td>
+<td align="right">85</td>
+</tr>
+<tr class="odd">
+<td align="left">C</td>
+<td align="right">78</td>
+<td align="right">95</td>
+<td align="right">85</td>
+<td align="right">88</td>
+<td align="right">90</td>
+</tr>
+<tr class="even">
+<td align="left">D</td>
+<td align="right">88</td>
+<td align="right">85</td>
+<td align="right">78</td>
+<td align="right">90</td>
+<td align="right">92</td>
+</tr>
+<tr class="odd">
+<td align="left">E</td>
+<td align="right">79</td>
+<td align="right">90</td>
+<td align="right">85</td>
+<td align="right">85</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td align="left">F</td>
+<td align="right">95</td>
+<td align="right">92</td>
+<td align="right">90</td>
+<td align="right">88</td>
+<td align="right">85</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="クロス集計表の変換" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> クロス集計表の変換<a href="データの編集.html#クロス集計表の変換" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>クロス集計表は人間が見やすい横長型の表形式です。クロス集計表は考古学においても論文や報告書で掲載されていることがあり、データの概要を知るのには便利です。一方、自分で得たデータと比較のために再利用したい場合は一工夫必要で、縦長型に変換するだけでは不十分です。</p>
+<p>Rでは<a href="https://tidyr.tidyverse.org/reference/uncount.html"><code>tidyr::uncount(x)</code></a>で”x”の数値の分、行を複製することができます。これでクロス集計表からヒストグラムなどを作成することが可能となります。あくまでクロス集計表から擬似的に作成したデータであり、生データではないので、先行研究で採用されているグラフの条件（例えばヒストグラムのビン幅など）を変更することは不適切です。</p>
+<p>ここでは例として、村木<span class="citation">(2004)</span>で公開されている奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式データから（Table<a href="データの編集.html#tab:cross-tab">3.5</a>）、縦長型の表に変換し（Table<a href="データの編集.html#tab:long-tab">3.6</a>）、ヒストグラムを再導出してみます（Figure<a href="データの編集.html#fig:cross-hist">3.1</a>）。ヒストグラムについては<a href="ggplot2を使用したデータビジュアライゼーション.html#ヒストグラム">後述</a>も参照してください。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="データの編集.html#cb4-1" tabindex="-1"></a><span class="co"># データは村木2004の表1（p30）の集計部分を使用</span></span>
+<span id="cb4-2"><a href="データの編集.html#cb4-2" tabindex="-1"></a>muraki2004 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;analysis/data/muraki2004.csv&quot;</span>)</span>
+<span id="cb4-3"><a href="データの編集.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="データの編集.html#cb4-4" tabindex="-1"></a>muraki2004 <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式（村木2004より）&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:cross-tab">表 3.5: </span>奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式（村木2004より）</caption>
+<thead>
+<tr class="header">
+<th align="right">year_start</th>
+<th align="right">year_end</th>
+<th align="right">type1</th>
+<th align="right">type2</th>
+<th align="right">type3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1531</td>
+<td align="right">1540</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1541</td>
+<td align="right">1550</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1551</td>
+<td align="right">1560</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1561</td>
+<td align="right">1570</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1571</td>
+<td align="right">1580</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1581</td>
+<td align="right">1590</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="データの編集.html#cb5-1" tabindex="-1"></a><span class="co"># 縦長型に変換しuncount()で行の複製</span></span>
+<span id="cb5-2"><a href="データの編集.html#cb5-2" tabindex="-1"></a>muraki2004_long <span class="ot">&lt;-</span> muraki2004 <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="データの編集.html#cb5-3" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">!</span><span class="fu">c</span>(year_start, year_end), </span>
+<span id="cb5-4"><a href="データの編集.html#cb5-4" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&quot;Type&quot;</span>,</span>
+<span id="cb5-5"><a href="データの編集.html#cb5-5" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&quot;N&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="データの編集.html#cb5-6" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">uncount</span>(N) <span class="sc">%&gt;%</span>                  <span class="co"># Nの数値分、行を追加する。</span></span>
+<span id="cb5-7"><a href="データの編集.html#cb5-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(dplyr<span class="sc">::</span><span class="fu">across</span>(Type, factor))</span>
+<span id="cb5-8"><a href="データの編集.html#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="データの編集.html#cb5-9" tabindex="-1"></a>muraki2004_long <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;`tidyr::pivot_longer()`と`tidyr::uncount()`で縦長型に変換&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:long-tab">表 3.6: </span><code>tidyr::pivot_longer()</code>と<code>tidyr::uncount()</code>で縦長型に変換</caption>
+<thead>
+<tr class="header">
+<th align="right">year_start</th>
+<th align="right">year_end</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1531</td>
+<td align="right">1540</td>
+<td align="left">type1</td>
+</tr>
+<tr class="even">
+<td align="right">1531</td>
+<td align="right">1540</td>
+<td align="left">type1</td>
+</tr>
+<tr class="odd">
+<td align="right">1551</td>
+<td align="right">1560</td>
+<td align="left">type1</td>
+</tr>
+<tr class="even">
+<td align="right">1551</td>
+<td align="right">1560</td>
+<td align="left">type1</td>
+</tr>
+<tr class="odd">
+<td align="right">1551</td>
+<td align="right">1560</td>
+<td align="left">type1</td>
+</tr>
+<tr class="even">
+<td align="right">1561</td>
+<td align="right">1570</td>
+<td align="left">type1</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="データの編集.html#cb6-1" tabindex="-1"></a>muraki2004_long <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="データの編集.html#cb6-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="データの編集.html#cb6-3" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> year_start, </span>
+<span id="cb6-4"><a href="データの編集.html#cb6-4" tabindex="-1"></a>                              <span class="at">y =</span> <span class="fu">after_stat</span>(count),</span>
+<span id="cb6-5"><a href="データの編集.html#cb6-5" tabindex="-1"></a>                              <span class="at">fill =</span> Type),</span>
+<span id="cb6-6"><a href="データの編集.html#cb6-6" tabindex="-1"></a>                          <span class="at">binwidth =</span> <span class="dv">10</span>,    <span class="co"># bin幅の設定</span></span>
+<span id="cb6-7"><a href="データの編集.html#cb6-7" tabindex="-1"></a>                          <span class="at">position =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb6-8"><a href="データの編集.html#cb6-8" tabindex="-1"></a>                          <span class="co"># alpha = 0.2,        # 透明度の設定</span></span>
+<span id="cb6-9"><a href="データの編集.html#cb6-9" tabindex="-1"></a>                          <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>,     <span class="co"># グラフの枠線の色</span></span>
+<span id="cb6-10"><a href="データの編集.html#cb6-10" tabindex="-1"></a>                          <span class="at">boundary =</span> <span class="dv">0</span>) <span class="sc">+</span>       <span class="co"># ビンの境界を指定</span></span>
+<span id="cb6-11"><a href="データの編集.html#cb6-11" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1530</span>, <span class="dv">1770</span>, <span class="dv">20</span>), </span>
+<span id="cb6-12"><a href="データの編集.html#cb6-12" tabindex="-1"></a>                     <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">1530</span>, <span class="dv">1770</span>)) <span class="sc">+</span>        <span class="co"># x軸の範囲を設定</span></span>
+<span id="cb6-13"><a href="データの編集.html#cb6-13" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Type,</span>
+<span id="cb6-14"><a href="データの編集.html#cb6-14" tabindex="-1"></a>             <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="データの編集.html#cb6-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;年代&quot;</span>, <span class="at">y =</span> <span class="st">&quot;個数&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="データの編集.html#cb6-16" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_family =</span> <span class="st">&quot;HiraginoSans-W3&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:cross-hist"></span>
+<img src="chapters_files/figure-html/cross-hist-1.png" alt="クロス集計表から再構成したヒストグラム" width="672" />
+<p class="caption">
+図 3.1: クロス集計表から再構成したヒストグラム
+</p>
+</div>
+<p>データの前処理や操作を行うには<a href="https://dplyr.tidyverse.org"><code>dplyr</code></a>パッケージが便利です。データフレームなどに対して、データの選択や絞り込み、集約といった様々な操作をすることができます。ここでは、主要な機能を使ってデータフレームの加工を行い、実際の分析使用する形にしていきます。</p>
+</div>
+</div>
+<div id="データを取り込む" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> データを取り込む<a href="データの編集.html#データを取り込む" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Rで<code>.xlsx</code>ファイルをそのまま読み込むパッケージもありますが、macでは正常に機能しないので、今回は<code>.csv</code>に変換したものを読み込みます。</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="データの編集.html#cb7-1" tabindex="-1"></a><span class="do">#### データの読み込み ####</span></span>
+<span id="cb7-2"><a href="データの編集.html#cb7-2" tabindex="-1"></a><span class="co">#  `readr::read_csv()`は`readr`パッケージの機能。`readr::`は、書かなくても機能します。</span></span>
+<span id="cb7-3"><a href="データの編集.html#cb7-3" tabindex="-1"></a><span class="co"># Rの標準関数の`read.csv()`でも同様なことができます。</span></span>
+<span id="cb7-4"><a href="データの編集.html#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="データの編集.html#cb7-5" tabindex="-1"></a>fish <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;analysis/data/testdata2.csv&quot;</span>)</span>
+<span id="cb7-6"><a href="データの編集.html#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="データの編集.html#cb7-7" tabindex="-1"></a><span class="do">#### 簡単な編集をしておく ####</span></span>
+<span id="cb7-8"><a href="データの編集.html#cb7-8" tabindex="-1"></a><span class="co"># `stringi::stri_trans_nfkc`関数で全角を半角にする。</span></span>
+<span id="cb7-9"><a href="データの編集.html#cb7-9" tabindex="-1"></a><span class="fu">library</span>(stringi)</span>
+<span id="cb7-10"><a href="データの編集.html#cb7-10" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="データの編集.html#cb7-11" tabindex="-1"></a>fish <span class="ot">&lt;-</span> fish <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="データの編集.html#cb7-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(dplyr<span class="sc">::</span><span class="fu">across</span>(dplyr<span class="sc">::</span><span class="fu">everything</span>(), <span class="sc">~</span> stringi<span class="sc">::</span><span class="fu">stri_trans_nfkc</span>(.)))</span>
+<span id="cb7-13"><a href="データの編集.html#cb7-13" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="データの編集.html#cb7-14" tabindex="-1"></a><span class="co"># データの型を変更</span></span>
+<span id="cb7-15"><a href="データの編集.html#cb7-15" tabindex="-1"></a>fish <span class="ot">&lt;-</span> fish <span class="sc">%&gt;%</span></span>
+<span id="cb7-16"><a href="データの編集.html#cb7-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(dplyr<span class="sc">::</span><span class="fu">across</span>(<span class="fu">c</span>(<span class="st">&quot;Period&quot;</span>, <span class="st">&quot;Fish&quot;</span>, <span class="st">&quot;Bone&quot;</span>, <span class="st">&quot;Site&quot;</span>, <span class="st">&quot;Direction&quot;</span>), as.factor)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-17"><a href="データの編集.html#cb7-17" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(dplyr<span class="sc">::</span><span class="fu">across</span>(PML, as.numeric))</span></code></pre></div>
+</div>
+<div id="filterによる行の絞り込み" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> <code>filter()</code>による行の絞り込み<a href="データの編集.html#filterによる行の絞り込み" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://dplyr.tidyverse.org/reference/filter.html"><code>dplyr::filter()</code></a>関数は、条件を満たす行のみにデータを絞り込むものです。条件が一致するものは<code>=</code>でなく<code>==</code>である点に注意が必要です。また、不等号で数値の絞り込みもできます。</p>
+<div id="一条件で絞り込む" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> 一条件で絞り込む<a href="データの編集.html#一条件で絞り込む" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="データの編集.html#cb8-1" tabindex="-1"></a><span class="co"># `head()`でデータフレームの行頭を表示する。</span></span>
+<span id="cb8-2"><a href="データの編集.html#cb8-2" tabindex="-1"></a><span class="co"># `tail()`にするとデータフレームの行末を表示する。</span></span>
+<span id="cb8-3"><a href="データの編集.html#cb8-3" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Period <span class="sc">==</span> <span class="st">&quot;2期&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish       Bone     Direction Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 クロダイ属 前上顎骨 右        2期       NA とある貝塚
+## 2 クロダイ属 前上顎骨 右        2期       NA とある貝塚
+## 3 クロダイ属 歯骨     右        2期       NA とある貝塚
+## 4 クロダイ属 歯骨     右        2期       NA とある貝塚
+## 5 マダイ     前上顎骨 右        2期       NA とある貝塚
+## 6 タイ科     前上顎骨 右        2期       NA とある貝塚</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="データの編集.html#cb10-1" tabindex="-1"></a><span class="co"># 大きさ30mm以上に絞り込む</span></span>
+<span id="cb10-2"><a href="データの編集.html#cb10-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(PML <span class="sc">&gt;=</span> <span class="fl">30.0</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish       Bone     Direction Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 クロダイ属 前上顎骨 左        1期     30.2 とある貝塚
+## 2 クロダイ属 前上顎骨 右        2期     31.1 とある貝塚
+## 3 クロダイ属 前上顎骨 左        2期     35.5 とある貝塚
+## 4 クロダイ属 前上顎骨 右        2期     32   とある貝塚
+## 5 クロダイ属 前上顎骨 右        2期     32.6 とある貝塚
+## 6 クロダイ属 前上顎骨 左        2期     30.2 とある貝塚</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="データの編集.html#cb12-1" tabindex="-1"></a><span class="co"># `!`で否定条件を指定できる。</span></span>
+<span id="cb12-2"><a href="データの編集.html#cb12-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Period <span class="sc">!=</span> <span class="st">&quot;1期&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish       Bone          Direction Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;         &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 タイ科     前上顎骨/歯骨 不明      3期       NA とある貝塚
+## 2 クロダイ属 前上顎骨      右        2期       NA とある貝塚
+## 3 クロダイ属 前上顎骨      右        2期       NA とある貝塚
+## 4 クロダイ属 歯骨          右        2期       NA とある貝塚
+## 5 クロダイ属 歯骨          右        2期       NA とある貝塚
+## 6 マダイ     前上顎骨      右        2期       NA とある貝塚</code></pre>
+</div>
+<div id="複数条件による絞り込み" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> 複数条件による絞り込み<a href="データの編集.html#複数条件による絞り込み" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>条件を「どちらも満たす（and）」場合は<code>&amp;</code>や<code>,</code>を使用します。条件を「いずれかを満たす（or）」場合は<code>|</code>を、<code>!</code>を使って反転させると条件を「いずれも満たさない」行に絞り込むことができます。</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="データの編集.html#cb14-1" tabindex="-1"></a><span class="co"># PMLが30cm以上、時期が`2期`のものに絞り込む</span></span>
+<span id="cb14-2"><a href="データの編集.html#cb14-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Period <span class="sc">==</span> <span class="st">&quot;2期&quot;</span> <span class="sc">&amp;</span> PML <span class="sc">&gt;=</span> <span class="fl">30.0</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish       Bone     Direction Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 クロダイ属 前上顎骨 右        2期     31.1 とある貝塚
+## 2 クロダイ属 前上顎骨 左        2期     35.5 とある貝塚
+## 3 クロダイ属 前上顎骨 右        2期     32   とある貝塚
+## 4 クロダイ属 前上顎骨 右        2期     32.6 とある貝塚
+## 5 クロダイ属 前上顎骨 左        2期     30.2 とある貝塚
+## 6 クロダイ属 前上顎骨 左        2期     34.1 とある貝塚</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="データの編集.html#cb16-1" tabindex="-1"></a><span class="co"># PMLが30cm以上または時期が`2期`に絞り込む</span></span>
+<span id="cb16-2"><a href="データの編集.html#cb16-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Period <span class="sc">==</span> <span class="st">&quot;2期&quot;</span> <span class="sc">|</span> PML <span class="sc">&gt;=</span> <span class="fl">30.0</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish       Bone     Direction Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 クロダイ属 前上顎骨 右        2期       NA とある貝塚
+## 2 クロダイ属 前上顎骨 右        2期       NA とある貝塚
+## 3 クロダイ属 歯骨     右        2期       NA とある貝塚
+## 4 クロダイ属 歯骨     右        2期       NA とある貝塚
+## 5 マダイ     前上顎骨 右        2期       NA とある貝塚
+## 6 タイ科     前上顎骨 右        2期       NA とある貝塚</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="データの編集.html#cb18-1" tabindex="-1"></a><span class="co"># PMLが30cm以上または時期が`2期`以外のものに絞り込む</span></span>
+<span id="cb18-2"><a href="データの編集.html#cb18-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>(Period <span class="sc">==</span> <span class="st">&quot;2期&quot;</span> <span class="sc">|</span> PML <span class="sc">&gt;=</span> <span class="fl">30.0</span>)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish       Bone     Direction Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 クロダイ属 前上顎骨 左        1期     20.6 とある貝塚
+## 2 クロダイ属 前上顎骨 右        1期     29.6 とある貝塚
+## 3 クロダイ属 前上顎骨 右        1期     20.4 とある貝塚
+## 4 クロダイ属 前上顎骨 左        1期     29.5 とある貝塚
+## 5 クロダイ属 前上顎骨 右        1期     24.4 とある貝塚
+## 6 クロダイ属 前上顎骨 右        1期     27.1 とある貝塚</code></pre>
+</div>
+</div>
+<div id="selectによる列の操作" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> <code>select()</code>による列の操作<a href="データの編集.html#selectによる列の操作" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://dplyr.tidyverse.org/reference/select.html"><code>dplyr::select()</code></a>関数を使うことで、データフレームから特定の列を選択したり、列名の変更ができます。Rの標準機能よりも直接的に指定することができます。</p>
+<div id="列を抽出削除する" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> 列を抽出、削除する<a href="データの編集.html#列を抽出削除する" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="データの編集.html#cb20-1" tabindex="-1"></a><span class="co">#列を抽出する。</span></span>
+<span id="cb20-2"><a href="データの編集.html#cb20-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Fish,Period) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   Fish       Period
+##   &lt;fct&gt;      &lt;fct&gt; 
+## 1 マダイ     1期   
+## 2 クロダイ属 1期   
+## 3 コイ科     1期   
+## 4 サケ属     1期   
+## 5 サケ属     1期   
+## 6 サメ類     1期</code></pre>
+<p><code>:</code>を使うことでまとめて選択することもできます。</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="データの編集.html#cb22-1" tabindex="-1"></a><span class="co"># Site列からPeriod列までをまとめて抽出する。</span></span>
+<span id="cb22-2"><a href="データの編集.html#cb22-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Bone<span class="sc">:</span>Period) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   Bone     Direction Period
+##   &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt; 
+## 1 椎骨     中        1期   
+## 2 前上顎骨 左        1期   
+## 3 主鰓蓋骨 右        1期   
+## 4 椎骨     中        1期   
+## 5 椎骨     中        1期   
+## 6 椎骨     中        1期</code></pre>
+<p>列名の前に<code>-</code>を加えることで、列を削除することができます。</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="データの編集.html#cb24-1" tabindex="-1"></a><span class="co"># 不要な列を削除する。</span></span>
+<span id="cb24-2"><a href="データの編集.html#cb24-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Direction) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##   Fish       Bone     Period   PML Site      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 マダイ     椎骨     1期       NA とある貝塚
+## 2 クロダイ属 前上顎骨 1期       NA とある貝塚
+## 3 コイ科     主鰓蓋骨 1期       NA とある貝塚
+## 4 サケ属     椎骨     1期       NA とある貝塚
+## 5 サケ属     椎骨     1期       NA とある貝塚
+## 6 サメ類     椎骨     1期       NA とある貝塚</code></pre>
+</div>
+<div id="列の順番を入れ替える" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> 列の順番を入れ替える<a href="データの編集.html#列の順番を入れ替える" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="データの編集.html#cb26-1" tabindex="-1"></a><span class="co"># 列の順番を入れ替える。</span></span>
+<span id="cb26-2"><a href="データの編集.html#cb26-2" tabindex="-1"></a><span class="co"># dplyr::everything()でその他の列をそのまま選択。</span></span>
+<span id="cb26-3"><a href="データの編集.html#cb26-3" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> </span>
+<span id="cb26-4"><a href="データの編集.html#cb26-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Site, dplyr<span class="sc">::</span><span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="データの編集.html#cb26-5" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Site       Fish       Bone     Direction Period   PML
+##   &lt;fct&gt;      &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt;
+## 1 とある貝塚 マダイ     椎骨     中        1期       NA
+## 2 とある貝塚 クロダイ属 前上顎骨 左        1期       NA
+## 3 とある貝塚 コイ科     主鰓蓋骨 右        1期       NA
+## 4 とある貝塚 サケ属     椎骨     中        1期       NA
+## 5 とある貝塚 サケ属     椎骨     中        1期       NA
+## 6 とある貝塚 サメ類     椎骨     中        1期       NA</code></pre>
+</div>
+<div id="列のリネーム" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> 列のリネーム<a href="データの編集.html#列のリネーム" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://dplyr.tidyverse.org/reference/select.html"><code>dplyr::select()</code></a>関数では列名の変更もできますが、<code>dplyr::everything()</code>とセットで使用する必要があります。<a href="https://dplyr.tidyverse.org/reference/rename.html"><code>dplyr::rename()</code></a>を使った方が直感的かつ省エネで変更できます。</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="データの編集.html#cb28-1" tabindex="-1"></a><span class="co"># &quot;新しい列名 = 修正したい列名&quot;でリネームが可能。</span></span>
+<span id="cb28-2"><a href="データの編集.html#cb28-2" tabindex="-1"></a><span class="co"># `dplyr::select()`を使う場合は`dplyr::everything()`が必須。</span></span>
+<span id="cb28-3"><a href="データの編集.html#cb28-3" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="データの編集.html#cb28-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(魚種 <span class="ot">=</span> Fish, dplyr<span class="sc">::</span><span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="データの編集.html#cb28-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(遺跡 <span class="ot">=</span> Site, 骨の名称 <span class="ot">=</span> Bone) <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="データの編集.html#cb28-6" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   魚種       骨の名称 Direction Period   PML 遺跡      
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 マダイ     椎骨     中        1期       NA とある貝塚
+## 2 クロダイ属 前上顎骨 左        1期       NA とある貝塚
+## 3 コイ科     主鰓蓋骨 右        1期       NA とある貝塚
+## 4 サケ属     椎骨     中        1期       NA とある貝塚
+## 5 サケ属     椎骨     中        1期       NA とある貝塚
+## 6 サメ類     椎骨     中        1期       NA とある貝塚</code></pre>
+</div>
+</div>
+<div id="mutateによる列の編集" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> <code>mutate()</code>による列の編集<a href="データの編集.html#mutateによる列の編集" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://dplyr.tidyverse.org"><code>dplyr</code></a>パッケージにおいて、<a href="https://dplyr.tidyverse.org/reference/filter.html"><code>dplyr::filter()</code></a>と並んでよく使う関数が<a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a>です。新たに変数を追加したり、既存の変数を置き換えたりすることなどができます。</p>
+<p>列の型も<a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a>を使って変更することができます。複数の列を選択する際には<a href="https://dplyr.tidyverse.org/reference/mutate_all.html?q=mutate_at#grouping-variables"><code>dplyr::mutate_at()</code></a>を使う方法もありますが、<a href="https://dplyr.tidyverse.org/reference/across.html"><code>dplyr::across()</code></a>を併用すれば、<a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a>だけで対応することができます。</p>
+<div id="mutate-による列の追加" class="section level3 hasAnchor" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> mutate( )による列の追加<a href="データの編集.html#mutate-による列の追加" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a>関数を使用して列を追加します。また、同時に列の型を設定することもできます。</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="データの編集.html#cb30-1" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="データの編集.html#cb30-2" tabindex="-1"></a>  <span class="co"># 列を追加し、それぞれ文字を入れる</span></span>
+<span id="cb30-3"><a href="データの編集.html#cb30-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(時代 <span class="ot">=</span> <span class="st">&quot;縄文時代前期&quot;</span>, 地域 <span class="ot">=</span> <span class="st">&quot;北陸&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 8
+##   Fish       Bone     Direction Period   PML Site       時代         地域 
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;chr&gt;        &lt;chr&gt;
+## 1 マダイ     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 2 クロダイ属 前上顎骨 左        1期       NA とある貝塚 縄文時代前期 北陸 
+## 3 コイ科     主鰓蓋骨 右        1期       NA とある貝塚 縄文時代前期 北陸 
+## 4 サケ属     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 5 サケ属     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 6 サメ類     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="データの編集.html#cb32-1" tabindex="-1"></a><span class="do">#### 「時代」のみfctrに変更する場合 ####</span></span>
+<span id="cb32-2"><a href="データの編集.html#cb32-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="データの編集.html#cb32-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(時代 <span class="ot">=</span> <span class="fu">factor</span>(<span class="st">&quot;縄文時代前期&quot;</span>), 地域 <span class="ot">=</span> <span class="st">&quot;北陸&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 8
+##   Fish       Bone     Direction Period   PML Site       時代         地域 
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;        &lt;chr&gt;
+## 1 マダイ     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 2 クロダイ属 前上顎骨 左        1期       NA とある貝塚 縄文時代前期 北陸 
+## 3 コイ科     主鰓蓋骨 右        1期       NA とある貝塚 縄文時代前期 北陸 
+## 4 サケ属     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 5 サケ属     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 6 サメ類     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="データの編集.html#cb34-1" tabindex="-1"></a><span class="do">#### 列の型を文字型（chr）から因子型（fctr）にまとめて変更 ####</span></span>
+<span id="cb34-2"><a href="データの編集.html#cb34-2" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="データの編集.html#cb34-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(時代 <span class="ot">=</span> <span class="st">&quot;縄文時代前期&quot;</span>, 地域 <span class="ot">=</span> <span class="st">&quot;北陸&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="データの編集.html#cb34-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(dplyr<span class="sc">::</span><span class="fu">across</span>(<span class="fu">c</span>(時代, 地域), factor)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 8
+##   Fish       Bone     Direction Period   PML Site       時代         地域 
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;        &lt;fct&gt;
+## 1 マダイ     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 2 クロダイ属 前上顎骨 左        1期       NA とある貝塚 縄文時代前期 北陸 
+## 3 コイ科     主鰓蓋骨 右        1期       NA とある貝塚 縄文時代前期 北陸 
+## 4 サケ属     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 5 サケ属     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸 
+## 6 サメ類     椎骨     中        1期       NA とある貝塚 縄文時代前期 北陸</code></pre>
+</div>
+<div id="場合分けによる列の編集" class="section level3 hasAnchor" number="3.7.2">
+<h3><span class="header-section-number">3.7.2</span> 場合分けによる列の編集<a href="データの編集.html#場合分けによる列の編集" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://dplyr.tidyverse.org/reference/case_when.html"><code>dplyr::case_when()</code></a>や<a href="https://dplyr.tidyverse.org/reference/if_else.html"><code>dplyr::if_else()</code></a>を組み合わせることで、条件を満たす列を作成することもできます。既存の列にある変数を編集（置き換え）することも可能です。</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="データの編集.html#cb36-1" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="データの編集.html#cb36-2" tabindex="-1"></a>  <span class="fu">filter</span>(PML <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> Fish <span class="sc">==</span> <span class="st">&quot;クロダイ属&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="データの編集.html#cb36-3" tabindex="-1"></a>  <span class="co"># `case_when()`で場合分けをして、時代という列を作成する。</span></span>
+<span id="cb36-4"><a href="データの編集.html#cb36-4" tabindex="-1"></a>  <span class="co"># 最後を`TRUE ~ NA`で一致しないものを。</span></span>
+<span id="cb36-5"><a href="データの編集.html#cb36-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Period =</span> <span class="fu">factor</span>(</span>
+<span id="cb36-6"><a href="データの編集.html#cb36-6" tabindex="-1"></a>    <span class="fu">case_when</span>(</span>
+<span id="cb36-7"><a href="データの編集.html#cb36-7" tabindex="-1"></a>      Period <span class="sc">==</span> <span class="st">&quot;1期&quot;</span> <span class="sc">~</span> <span class="st">&quot;縄文1期&quot;</span>, </span>
+<span id="cb36-8"><a href="データの編集.html#cb36-8" tabindex="-1"></a>      Period <span class="sc">==</span> <span class="st">&quot;2期&quot;</span> <span class="sc">~</span> <span class="st">&quot;縄文2期&quot;</span>, </span>
+<span id="cb36-9"><a href="データの編集.html#cb36-9" tabindex="-1"></a>      <span class="co"># `grepl`は正規表現で、文字列が一致するものをTRUE、FALSEを返す。</span></span>
+<span id="cb36-10"><a href="データの編集.html#cb36-10" tabindex="-1"></a>      <span class="fu">grepl</span>(<span class="st">&quot;3期&quot;</span>, Period) <span class="sc">~</span> <span class="st">&quot;縄文3期&quot;</span>,</span>
+<span id="cb36-11"><a href="データの編集.html#cb36-11" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA</span>))</span>
+<span id="cb36-12"><a href="データの編集.html#cb36-12" tabindex="-1"></a>    )<span class="sc">%&gt;%</span></span>
+<span id="cb36-13"><a href="データの編集.html#cb36-13" tabindex="-1"></a>  <span class="co"># `if_else()`で場合分けをして、大きさという列を作成する。</span></span>
+<span id="cb36-14"><a href="データの編集.html#cb36-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Size =</span> <span class="fu">if_else</span>(PML <span class="sc">&lt;</span> <span class="fl">30.0</span>, <span class="st">&quot;small&quot;</span>, <span class="st">&quot;Large&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb36-15"><a href="データの編集.html#cb36-15" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   Fish       Bone     Direction Period    PML Site       Size 
+##   &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;chr&gt;
+## 1 クロダイ属 前上顎骨 左        縄文1期  20.6 とある貝塚 small
+## 2 クロダイ属 前上顎骨 右        縄文1期  29.6 とある貝塚 small
+## 3 クロダイ属 前上顎骨 右        縄文1期  20.4 とある貝塚 small
+## 4 クロダイ属 前上顎骨 左        縄文1期  29.5 とある貝塚 small
+## 5 クロダイ属 前上顎骨 右        縄文1期  24.4 とある貝塚 small
+## 6 クロダイ属 前上顎骨 右        縄文1期  27.1 とある貝塚 small</code></pre>
+</div>
+<div id="文字列の置き換え" class="section level3 hasAnchor" number="3.7.3">
+<h3><span class="header-section-number">3.7.3</span> 文字列の置き換え<a href="データの編集.html#文字列の置き換え" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://dplyr.tidyverse.org/reference/case_when.html"><code>dplyr::case_when()</code></a>以外にも<a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a>関数と組み合わせることで、文字列の置き換えをすることができます。特に<a href="https://stringr.tidyverse.org/reference/str_replace.html"><code>stringr::str_replace()</code></a>はより明示的に文字の置き換えをすることができます。</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="データの編集.html#cb38-1" tabindex="-1"></a>fish <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Fish <span class="sc">==</span> <span class="st">&quot;クロダイ属&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="データの編集.html#cb38-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Site =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(Site, <span class="st">&quot;とある&quot;</span>, <span class="st">&quot;ござる&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="データの編集.html#cb38-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">Fish =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(Fish, <span class="st">&quot;クロダイ属&quot;</span>, <span class="st">&quot;クロダイ&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="データの編集.html#cb38-4" tabindex="-1"></a>  <span class="co"># 型がchr型になってしまうので、factor型に戻す。</span></span>
+<span id="cb38-5"><a href="データの編集.html#cb38-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(dplyr<span class="sc">::</span><span class="fu">across</span>(<span class="fu">c</span>(Fish, Site), as.factor)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a href="データの編集.html#cb38-6" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   Fish     Bone     Direction Period   PML Site      
+##   &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;     
+## 1 クロダイ 前上顎骨 左        1期       NA ござる貝塚
+## 2 クロダイ 前上顎骨 右        1期       NA ござる貝塚
+## 3 クロダイ 前上顎骨 右        1期       NA ござる貝塚
+## 4 クロダイ 歯骨     左        1期       NA ござる貝塚
+## 5 クロダイ 前上顎骨 右        2期       NA ござる貝塚
+## 6 クロダイ 前上顎骨 右        2期       NA ござる貝塚</code></pre>
+</div>
+</div>
+<div id="概要表" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> <code>summarize()</code>による概要表<a href="データの編集.html#概要表" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Rでは<code>summary()</code>関数で各列の個数や平均値といったデータの概要を知ることができます。基本的な統計情報を概要表（summary table）としてみることができます。</p>
+<p>Table<a href="データの編集.html#tab:summarize">3.7</a>のように、<code>dplyr::group_by()</code>でグループ化した変数についての必要な要約統計量を、<a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>dplyr::summarize()</code></a>関数で概要表を作成することもできます。</p>
+<p>概要表を作成することで全体の傾向や特性といったデータの特徴を理解しやすくなり、さらにはデータを比較する場合でも数値的な違いを把握することができます。</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="データの編集.html#cb40-1" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##          Fish            Bone      Direction       Period          PML       
+##  スズキ属  :3054   前上顎骨:2252   -   :  95   1期    :3675   Min.   :15.50  
+##  クロダイ属:2900   椎骨    :1974   不明:1243   1期-2期:2158   1st Qu.:24.90  
+##  マダイ    :1197   歯骨    :1946   中  :2754   1期-3期: 813   Median :27.90  
+##  タイ科    :1077   主鰓蓋骨:1910   右  :4018   2期    :4787   Mean   :27.83  
+##  フグ科    : 794   主上顎骨: 603   左  :4200   3期    : 777   3rd Qu.:30.70  
+##  コイ科    : 780   角骨    : 486               不明   : 100   Max.   :40.20  
+##  (Other)   :2508   (Other) :3139                              NA&#39;s   :11786  
+##          Site      
+##  とある貝塚:12310  
+##                    
+##                    
+##                    
+##                    
+##                    
+## </code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="データの編集.html#cb42-1" tabindex="-1"></a>fish <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="データの編集.html#cb42-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(Period <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;1期&quot;</span>, <span class="st">&quot;2期&quot;</span>, <span class="st">&quot;3期&quot;</span>) <span class="sc">&amp;</span> PML <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="データの編集.html#cb42-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(Period) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="データの編集.html#cb42-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
+<span id="cb42-5"><a href="データの編集.html#cb42-5" tabindex="-1"></a>    <span class="at">count =</span> <span class="fu">as.numeric</span>(<span class="fu">n</span>()),       <span class="co"># 個数</span></span>
+<span id="cb42-6"><a href="データの編集.html#cb42-6" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(PML), <span class="dv">1</span>),    <span class="co"># 平均</span></span>
+<span id="cb42-7"><a href="データの編集.html#cb42-7" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">round</span>(<span class="fu">median</span>(PML),<span class="dv">1</span>), <span class="co"># 中央値</span></span>
+<span id="cb42-8"><a href="データの編集.html#cb42-8" tabindex="-1"></a>    <span class="at">var. =</span> <span class="fu">round</span>(<span class="fu">var</span>(PML), <span class="dv">1</span>),     <span class="co"># 分散</span></span>
+<span id="cb42-9"><a href="データの編集.html#cb42-9" tabindex="-1"></a>    <span class="at">S.D. =</span> <span class="fu">round</span>(<span class="fu">sd</span>(PML), <span class="dv">1</span>),      <span class="co"># 標準偏差</span></span>
+<span id="cb42-10"><a href="データの編集.html#cb42-10" tabindex="-1"></a>    <span class="at">.groups   =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span>        <span class="co"># グルーピング解除</span></span>
+<span id="cb42-11"><a href="データの編集.html#cb42-11" tabindex="-1"></a>  <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb42-12"><a href="データの編集.html#cb42-12" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;`dplyr::summarize()`による概要表&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:summarize">表 3.7: </span><code>dplyr::summarize()</code>による概要表</caption>
+<thead>
+<tr class="header">
+<th align="left">Period</th>
+<th align="right">count</th>
+<th align="right">mean</th>
+<th align="right">median</th>
+<th align="right">var.</th>
+<th align="right">S.D.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1期</td>
+<td align="right">172</td>
+<td align="right">28.8</td>
+<td align="right">29.1</td>
+<td align="right">14.3</td>
+<td align="right">3.8</td>
+</tr>
+<tr class="even">
+<td align="left">2期</td>
+<td align="right">209</td>
+<td align="right">27.3</td>
+<td align="right">27.5</td>
+<td align="right">23.1</td>
+<td align="right">4.8</td>
+</tr>
+<tr class="odd">
+<td align="left">3期</td>
+<td align="right">30</td>
+<td align="right">26.6</td>
+<td align="right">26.0</td>
+<td align="right">19.5</td>
+<td align="right">4.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>「ネ申エクセル」ともいう。この弊害については奥村<span class="citation">(2013)</span>が詳しい。<a href="データの編集.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="統計解析言語r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot2を使用したデータビジュアライゼーション.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
