@@ -1,7 +1,7 @@
 ---
 title: "考古学のための「R」入門"
 author: "松井　広信"
-date: "Last Update: `r Sys.Date()`"
+date: "2024.1.3 (Last Update: `r Sys.Date()`)"
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
