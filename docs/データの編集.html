@@ -526,7 +526,7 @@ div.csl-indent {
 <h3><span class="header-section-number">3.3.2</span> クロス集計表の変換<a href="データの編集.html#クロス集計表の変換" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>クロス集計表は人間が見やすい横長型の表形式です。クロス集計表は考古学においても論文や報告書で掲載されていることがあり、データの概要を知るのには便利です。一方、自分で得たデータと比較のために再利用したい場合は一工夫必要で、縦長型に変換するだけでは不十分です。</p>
 <p>Rでは<a href="https://tidyr.tidyverse.org/reference/uncount.html"><code>tidyr::uncount(x)</code></a>で”x”の数値の分、行を複製することができます。これでクロス集計表からヒストグラムなどを作成することが可能となります。あくまでクロス集計表から擬似的に作成したデータであり、生データではないので、先行研究で採用されているグラフの条件（例えばヒストグラムのビン幅など）を変更することは不適切です。</p>
-<p>ここでは例として、村木<span class="citation">(2004)</span>で公開されている奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式データから（Table<a href="データの編集.html#tab:cross-tab">3.5</a>）、縦長型の表に変換し（Table<a href="データの編集.html#tab:long-tab">3.6</a>）、ヒストグラムを再導出してみます（Figure<a href="データの編集.html#fig:cross-hist">3.1</a>）。ヒストグラムについては<a href="ggplot2を使用したデータビジュアライゼーション.html#ヒストグラム">後述</a>も参照してください。</p>
+<p>ここでは例として、村木<span class="citation">(2004)</span>で公開されている奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式データから（表<a href="データの編集.html#tab:cross-tab">3.5</a>）、縦長型の表に変換し（表<a href="データの編集.html#tab:long-tab">3.6</a>）、ヒストグラムを再導出してみます（図<a href="データの編集.html#fig:cross-hist">3.1</a>）。ヒストグラムについては<a href="ggplot2を使用したデータビジュアライゼーション.html#ヒストグラム">後述</a>も参照してください。</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="データの編集.html#cb4-1" tabindex="-1"></a><span class="co"># データは村木2004の表1（p30）の集計部分を使用</span></span>
 <span id="cb4-2"><a href="データの編集.html#cb4-2" tabindex="-1"></a>muraki2004 <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;analysis/data/muraki2004.csv&quot;</span>)</span>
 <span id="cb4-3"><a href="データの編集.html#cb4-3" tabindex="-1"></a></span>
@@ -936,7 +936,7 @@ div.csl-indent {
 <div id="概要表" class="section level2 hasAnchor" number="3.8">
 <h2><span class="header-section-number">3.8</span> <code>summarize()</code>による概要表<a href="データの編集.html#概要表" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Rでは<code>summary()</code>関数で各列の個数や平均値といったデータの概要を知ることができます。基本的な統計情報を概要表（summary table）としてみることができます。</p>
-<p>Table<a href="データの編集.html#tab:summarize">3.7</a>のように、<code>dplyr::group_by()</code>でグループ化した変数についての必要な要約統計量を、<a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>dplyr::summarize()</code></a>関数で概要表を作成することもできます。</p>
+<p>表<a href="データの編集.html#tab:summarize">3.7</a>のように、<code>dplyr::group_by()</code>でグループ化した変数についての必要な要約統計量を、<a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>dplyr::summarize()</code></a>関数で概要表を作成することもできます。</p>
 <p>概要表を作成することで全体の傾向や特性といったデータの特徴を理解しやすくなり、さらにはデータを比較する場合でも数値的な違いを把握することができます。</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="データの編集.html#cb40-1" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>##          Fish            Bone      Direction       Period          PML       

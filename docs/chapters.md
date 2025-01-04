@@ -21,7 +21,7 @@
 
 Rは[`The R Project for Statistical Computing`][R]から最新版をダウンロードし、それぞれのパソコンの指示に従ってインストールします。
 
-[`RStudio`][RStudio]はRの統合開発環境（IDE : **I**ntegrated **D**evelopment **E**nvironment）で、Rを使いやすくするデスクトップアプリケーションです。`RMarkdown`を使ってプログラミングコードとドキュメントを統合した文書を作成し、`Knitr`でhtmlやwordなどに書き出すことができます。本書では記載していませんが、GitHubと連携すればバージョン管理や共同執筆者との共有も可能となります。[公式サイト][RStudio]にアクセスし、インストーラーをダウンロードします（Figure\@ref(fig:RStudio)）。
+[`RStudio`][RStudio]はRの統合開発環境（IDE : **I**ntegrated **D**evelopment **E**nvironment）で、Rを使いやすくするデスクトップアプリケーションです。`RMarkdown`を使ってプログラミングコードとドキュメントを統合した文書を作成し、`Knitr`でhtmlやwordなどに書き出すことができます。本書では記載していませんが、GitHubと連携すればバージョン管理や共同執筆者との共有も可能となります。[公式サイト][RStudio]にアクセスし、インストーラーをダウンロードします（図\@ref(fig:RStudio)）。
 
 <div class="figure">
 <img src="analysis/figures/RStudio_install.png" alt="RStuioのダウンロード画面" width="952" />
@@ -170,7 +170,7 @@ Table: (\#tab:wide-format2)縦長型から再び横長型の表へ
 
 Rでは[`tidyr::uncount(x)`][uncount]で"x"の数値の分、行を複製することができます。これでクロス集計表からヒストグラムなどを作成することが可能となります。あくまでクロス集計表から擬似的に作成したデータであり、生データではないので、先行研究で採用されているグラフの条件（例えばヒストグラムのビン幅など）を変更することは不適切です。
 
-ここでは例として、村木[-@muraki_2004b]で公開されている奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式データから（Table\@ref(tab:cross-tab)）、縦長型の表に変換し（Table\@ref(tab:long-tab)）、ヒストグラムを再導出してみます（Figure\@ref(fig:cross-hist)）。ヒストグラムについては[後述](#ヒストグラム)も参照してください。
+ここでは例として、村木[-@muraki_2004b]で公開されている奈良県天理市中山念仏寺墓地の背光五輪塔の年代と型式データから（表\@ref(tab:cross-tab)）、縦長型の表に変換し（表\@ref(tab:long-tab)）、ヒストグラムを再導出してみます（図\@ref(fig:cross-hist)）。ヒストグラムについては[後述](#ヒストグラム)も参照してください。
 
 [uncount]:https://tidyr.tidyverse.org/reference/uncount.html
 
@@ -658,7 +658,7 @@ fish %>%  filter(Fish == "クロダイ属") %>%
 
 Rでは`summary()`関数で各列の個数や平均値といったデータの概要を知ることができます。基本的な統計情報を概要表（summary table）としてみることができます。
 
-Table\@ref(tab:summarize)のように、`dplyr::group_by()`でグループ化した変数についての必要な要約統計量を、[`dplyr::summarize()`][summarize]関数で概要表を作成することもできます。
+表\@ref(tab:summarize)のように、`dplyr::group_by()`でグループ化した変数についての必要な要約統計量を、[`dplyr::summarize()`][summarize]関数で概要表を作成することもできます。
 
 概要表を作成することで全体の傾向や特性といったデータの特徴を理解しやすくなり、さらにはデータを比較する場合でも数値的な違いを把握することができます。
 
@@ -737,7 +737,7 @@ Table: (\#tab:summarize)`dplyr::summarize()`による概要表
 
 Tukey氏は「探索的データ解析（EDA:Explorary Data Analysis）」を提唱し、「箱ひげ図」などの直感的でわかりやすいグラフを提示したことで知られています。これらのメッセージからも可視化の重要性、メリットが端的に理解できるでしょう。
 
-さて話題が脱線しつつありますが、ここで要約統計量だけでなく、データ可視化が重要であることを理解するために、[`Alberto Cairo`][Cairo]が作成・公開している[`datasauRus`][datasauRus]パッケージを利用します。このパッケージには13のグループと$x$と$y$データからなるデータセットが含まれており、それらは同じ平均と標準偏差、ピアソン相関係数を示しています。このうち3つのグループの要約統計量を示したものが表\@ref(tab:datasaurus-summary)です。このデータをプロットすると、恐竜 （*Anscombosaurus*[^Anscombosaurus]）や星形、X字形が現れ、要約統計量は一致するにも関わらず、データの分布は全く異なることがわかります（Figure\@ref(fig:datasaurus-plot)）。[Same Stats, Different Graphs][Same Stats, Different Graphs]にアニメーションも掲載されているので、理解が深まるでしょう。
+さて話題が脱線しつつありますが、ここで要約統計量だけでなく、データ可視化が重要であることを理解するために、[`Alberto Cairo`][Cairo]が作成・公開している[`datasauRus`][datasauRus]パッケージを利用します。このパッケージには13のグループと$x$と$y$データからなるデータセットが含まれており、それらは同じ平均と標準偏差、ピアソン相関係数を示しています。このうち3つのグループの要約統計量を示したものが表\@ref(tab:datasaurus-summary)です。このデータをプロットすると、恐竜 （*Anscombosaurus*[^Anscombosaurus]）や星形、X字形が現れ、要約統計量は一致するにも関わらず、データの分布は全く異なることがわかります（図\@ref(fig:datasaurus-plot)）。[Same Stats, Different Graphs][Same Stats, Different Graphs]にアニメーションも掲載されているので、理解が深まるでしょう。
 
 このように、平均や標準偏差といった基本的な要約統計量だけではデータ全体を把握することはできません。データの分布を可視化することで、より多くの情報を把握することができます。
 
@@ -811,11 +811,11 @@ base +
 <img src="chapters_files/figure-html/unnamed-chunk-19-1.png" width="48%" /><img src="chapters_files/figure-html/unnamed-chunk-19-2.png" width="48%" />
 
 ### 見た目の設定
-[`theme_*()`][theme_]は図の背景を設定することができます（Figure\@ref(fig:theme-plot)）。デフォルトでは`theme_grey`が設定されており、背景がグレーのタイルで表示されます。一般的な論文だとモノクロ印刷であるため`theme_bw()`、`theme_minimal()`、`theme_classic()`が適しています。この[`theme_*()`][theme_]で使用できる引数は`base_size`（文字の大きさ）、`base_family`（フォント）、`base_line_size`（罫線）、`base_rect_size`（枠線）の4つに限られています。
+[`theme_*()`][theme_]は図の背景を設定することができます（図\@ref(fig:theme-plot)）。デフォルトでは`theme_grey`が設定されており、背景がグレーのタイルで表示されます。一般的な論文だとモノクロ印刷であるため`theme_bw()`、`theme_minimal()`、`theme_classic()`が適しています。この[`theme_*()`][theme_]で使用できる引数は`base_size`（文字の大きさ）、`base_family`（フォント）、`base_line_size`（罫線）、`base_rect_size`（枠線）の4つに限られています。
 
-[`theme()`][theme]を用いると、タイトル・ラベル・フォント・背景・罫線・凡例をさらに細かく設定でき、引数はそれに応じて多岐に渡ります（Figure\@ref(fig:theme-plot2)）。[`element_*()`][element_]とセットで使うことが多く、`element_blank()`（何も表示せず、スペースも差し込まない）、`element_rect()`（罫線と背景）、`element_line()`（線関係）、`element_text()`（文字関係）の4つがあります。
+[`theme()`][theme]を用いると、タイトル・ラベル・フォント・背景・罫線・凡例をさらに細かく設定でき、引数はそれに応じて多岐に渡ります（図\@ref(fig:theme-plot2)）。[`element_*()`][element_]とセットで使うことが多く、`element_blank()`（何も表示せず、スペースも差し込まない）、`element_rect()`（罫線と背景）、`element_line()`（線関係）、`element_text()`（文字関係）の4つがあります。
 
-[`theme_*()`][theme_]はセット販売とすれば、[`theme()`][theme]は単品販売のようなものでしょうか。[`theme_*()`][theme_]は[`theme()`][theme]で上書きすることも可能ですので、基本的には[`theme_*()`][theme_]を使い、必要に応じて変更するとよいと思います。表示にこだわりがある場合や、[`theme_*()`][theme_]が論文の投稿規定等に合致しない場合などは、[`theme()`][theme]を使って詳細に設定するとよいでしょう（Figure\@ref(fig:my-theme)）。
+[`theme_*()`][theme_]はセット販売とすれば、[`theme()`][theme]は単品販売のようなものでしょうか。[`theme_*()`][theme_]は[`theme()`][theme]で上書きすることも可能ですので、基本的には[`theme_*()`][theme_]を使い、必要に応じて変更するとよいと思います。表示にこだわりがある場合や、[`theme_*()`][theme_]が論文の投稿規定等に合致しない場合などは、[`theme()`][theme]を使って詳細に設定するとよいでしょう（図\@ref(fig:my-theme)）。
 
 [`ggplot2`][ggplot2]の制作者らが["ggplot2: Elegant Graphics for Data Analysis"で解説][theme-books]を公開しているので参照してください[@wickham_2016]。
 
@@ -908,7 +908,7 @@ base + my_theme
 
 [`ggplot2`][ggplot2]では、[`ggplot2::geom_histogram`][geom_histogram]を使用します。$x$軸にはPML（前上顎骨長）を、$y$軸では相対度数（`density`）や個数（`count`）を設定します。少数のデータの場合は個数で表現した方が良い場合がありますが、異なるサイズのデータを比較する場合や分布の形状を比較する場合は相対度数で示した方が良いようです。
 
-Figure\@ref(fig:hist)は、[`ggplot2::geom_histogram`][geom_histogram]のデフォルト設定で出力したもので、ここからレイヤーを重ねていくことで、より美しくわかりやすい可視化をすることができます。ビン数はデフォルトで30ですが、`bins`でビン数を指定することもできます。ビン数は計算で算出することもできます（スタージェスの公式など）。
+図\@ref(fig:hist)は、[`ggplot2::geom_histogram`][geom_histogram]のデフォルト設定で出力したもので、ここからレイヤーを重ねていくことで、より美しくわかりやすい可視化をすることができます。ビン数はデフォルトで30ですが、`bins`でビン数を指定することもできます。ビン数は計算で算出することもできます（スタージェスの公式など）。
 
 考古学では先行研究の蓄積が前提となる場合がほとんどなので、それに準じる形でビン幅をを設定する場面が多いと思われます。ビン幅は`binwidth`で設定することができます。ビン幅の設定によっては見た目が変わってしまうことがあり、作成者の恣意的な解釈に沿った作図も可能となるため、ビン幅の設定やヒストグラムを読み取る際には留意しなければいけません。
 
@@ -931,9 +931,9 @@ hist
 
 ヒストグラムで次元を追加する場合（グループ分け等）、事前にデータフレームの任意の列の型をcharacter型（文字）からfactor型（因子）に変換します。グラフの描写の中でも`levels =`で任意の順番に変更することもできます。
 
-1つのグラフの中で複数の変数（グループなど）を表示する場合は、`position =`で描写方法を指定します。`stack`のほか、`identity`や`dodge`があります（Figure\@ref(fig:hist2)）。
+1つのグラフの中で複数の変数（グループなど）を表示する場合は、`position =`で描写方法を指定します。`stack`のほか、`identity`や`dodge`があります（図\@ref(fig:hist2)）。
 
-一方、よく似た分布を示したデータの場合は、それぞれでヒストグラムを作成した方が見やすく、[`ggplot2::facet_wrap()`][facet_wrap]関数や、変数が多い場合は[`facet_grid()`][facet_grid]関数で表現すると比較しやすくなります。多くの場合は[`facet_wrap()`][facet_wrap]関数で十分です（Figure\@ref(fig:hist3)）。
+一方、よく似た分布を示したデータの場合は、それぞれでヒストグラムを作成した方が見やすく、[`ggplot2::facet_wrap()`][facet_wrap]関数や、変数が多い場合は[`facet_grid()`][facet_grid]関数で表現すると比較しやすくなります。多くの場合は[`facet_wrap()`][facet_wrap]関数で十分です（図\@ref(fig:hist3)）。
 
 [facet_wrap]:https://ggplot2.tidyverse.org/reference/facet_wrap.html
 [facet_grid]:https://ggplot2.tidyverse.org/reference/facet_grid.html
@@ -1005,7 +1005,7 @@ hist_3
 
 ### グラフの情報を取得する
 
-また、Table\@ref(tab:hist-build)のように[`ggplot2::ggplot_build()`][ggplot_build]でggplot2で描写したグラフの情報を取得することも可能です。
+また、表\@ref(tab:hist-build)のように[`ggplot2::ggplot_build()`][ggplot_build]でggplot2で描写したグラフの情報を取得することも可能です。
 
 [ggplot_build]:https://ggplot2.tidyverse.org/reference/ggplot_build.html
 
@@ -1330,7 +1330,7 @@ box
 
 シナプロットはバイオリンプロットと同じくデータの分布を可視化するためのグラフで、個々のデータをポイントで表示することができます。[`ggplot2`][ggplot2]でも[`ggplot2::geom_jitter`][geom_jitter]を使えば軸に幅を持たせて点をランダムに配置したグラフ（ジッタープロット）を描写することができますが、シナプロットはデータの密度分布に沿ってジッターの幅が制御され、データの数・密度分布・外れ値・広がりの情報がよりわかりやすくなっています。Nikos Sidiropoulos氏やSina Hadi Sohi氏らが2018年に論文"SinaPlot: An Enhanced Chart for Simple and Truthful Representation of Single Observations Over Multiple Classes"で発表しました[@Sidiropoulos_et_al_2018]。
 
-バイオリンプロットは[`ggplot2`][ggplot2]の[`ggplot2::geom_violin()`][geom_violin]を用いて、[`ggplot2::geom_boxplot()`][geom_boxplot]と同じような使い方ができます（Figure\@ref(fig:violin)）。シナプロットは[`ggforce`][ggforce]パッケージの[`ggforce::geom_sina()`][geom_sina]で実装することができます（Figure\@ref(fig:sina)）。バイオリンプロットとシナプロットともに、箱ひげ図などの他のグラフと組み合わせることも可能です（Figure\@ref(fig:box-violin-sina)）。
+バイオリンプロットは[`ggplot2`][ggplot2]の[`ggplot2::geom_violin()`][geom_violin]を用いて、[`ggplot2::geom_boxplot()`][geom_boxplot]と同じような使い方ができます（図\@ref(fig:violin)）。シナプロットは[`ggforce`][ggforce]パッケージの[`ggforce::geom_sina()`][geom_sina]で実装することができます（図\@ref(fig:sina)）。バイオリンプロットとシナプロットともに、箱ひげ図などの他のグラフと組み合わせることも可能です（図\@ref(fig:box-violin-sina)）。
 
 [geom_jitter]:https://ggplot2.tidyverse.org/reference/geom_jitter.html
 [geom_violin]:https://ggplot2.tidyverse.org/reference/geom_violin.html
