@@ -1,0 +1,10 @@
+Source,Definition
+Wickham 2014,Each variable forms a column.
+Wickham 2014,Each observation forms a row.
+Wickham 2014,Each type of observational unit forms a table.
+Wickham & Grolemund 2017,Each variable must have its own column.
+Wickham & Grolemund 2017,Each observation must have its own row.
+Wickham & Grolemund 2017,Each value must have its own cell.
+Wickham et.al. 2023,Each variable is a column; each column is a variable.
+Wickham et.al. 2023,Each observation is a row; each row is an observation.
+Wickham et.al. 2023,Each value is a cell; each cell is a single value.
