@@ -257,7 +257,7 @@ div.csl-indent {
 </div>
 <div id="tidy-data" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> tidy data<a href="データの編集.html#tidy-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>まず初めに、人間が見やすいデータ形式と、Rをはじめとしたプログラミング言語で機械処理しやすいデータ形式が異なるということを理解しておく必要があります。例えば生徒の名前と教科、点数からなる表があるとします。</p>
+<p>はじめに、人間が見やすいデータ形式と、Rをはじめとしたプログラミング言語で機械処理しやすいデータ形式が異なるということを理解しておく必要があります。例えば生徒の名前と教科、点数からなる表があるとします。</p>
 <table>
 <caption><span id="tab:wide-format">表 3.1: </span>横長型の表</caption>
 <thead>
@@ -321,7 +321,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>表<a href="データの編集.html#tab:wide-format">3.1</a>のような1つの観測値に複数の変数が含まれる表形式を表を横長型（Wide Format）といいます。人間がみる場合はこの表形式が見やすく、教科書や論文で掲載されるものもこのような形式です。</p>
+<p>表<a href="データの編集.html#tab:wide-format">3.1</a>のような1つの観測値に複数の変数が含まれる表形式を横長型（Wide Format）といいます。人間がみる場合はこの表形式が見やすく、教科書や論文で掲載されるものもこのような形式です。</p>
 <p>一方、表<a href="データの編集.html#tab:long-format">3.3</a>のような1つの観測値に1つの変数が含まれる表形式を縦長型（Long Format）といい、各列が異なる変数を示し、各行が1つの観測値（属性、数値）を表します。これが<a href="https://www.tidyverse.org"><code>tidyverse</code></a>でいう<strong>tidy data</strong>（整然データ）で、はじめHadley Wickhamが2014年に論文で定義が示され<span class="citation">(Wickham, 2014)</span>、“R for Data Science”<span class="citation">(Wickham &amp; Grolemund, 2017)</span>、“R for Data Science (2e)”<span class="citation">(Wickham et al., 2023)</span>で改訂されています（表<a href="データの編集.html#tab:definition">3.2</a>）。最新の定義を翻訳すると次の通りとなります。</p>
 <blockquote>
 <ul>

@@ -3,6 +3,7 @@ output_dir: "docs"            # 出力先のフォルダ
 rmd_files:                    # Rmdファイルの順序
   - "index.Rmd"
   - "chapters.Rmd"
+  - "reference.Rmd"
 new_session: true             # 各章ごとに新しいRセッションを使う
 delete_merged_file: true      # 中間生成ファイルを削除する
 language:                     # 言語設定

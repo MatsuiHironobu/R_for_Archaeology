@@ -77,7 +77,7 @@ library(tidyverse)
 
 ## tidy data
 
-まず初めに、人間が見やすいデータ形式と、Rをはじめとしたプログラミング言語で機械処理しやすいデータ形式が異なるということを理解しておく必要があります。例えば生徒の名前と教科、点数からなる表があるとします。
+はじめに、人間が見やすいデータ形式と、Rをはじめとしたプログラミング言語で機械処理しやすいデータ形式が異なるということを理解しておく必要があります。例えば生徒の名前と教科、点数からなる表があるとします。
 
 ```{r wide-format, echo=FALSE}
 # chatGPTで作成した適当なデータです。
@@ -95,7 +95,7 @@ student_data <- data.frame(
 knitr::kable(student_data, caption = "横長型の表")
 ```
 
-表\@ref(tab:wide-format)のような1つの観測値に複数の変数が含まれる表形式を表を横長型（Wide Format）といいます。人間がみる場合はこの表形式が見やすく、教科書や論文で掲載されるものもこのような形式です。
+表\@ref(tab:wide-format)のような1つの観測値に複数の変数が含まれる表形式を横長型（Wide Format）といいます。人間がみる場合はこの表形式が見やすく、教科書や論文で掲載されるものもこのような形式です。
 
 一方、表\@ref(tab:long-format)のような1つの観測値に1つの変数が含まれる表形式を縦長型（Long Format）といい、各列が異なる変数を示し、各行が1つの観測値（属性、数値）を表します。これが[`tidyverse`][tidyverse]でいう**tidy data**（整然データ）で、はじめHadley Wickhamが2014年に論文で定義が示され[@wickham_2014]、"R for Data Science"[@wickham_2017]、"R for Data Science (2e)"[@wickham_2023]で改訂されています（表\@ref(tab:definition)）。最新の定義を翻訳すると次の通りとなります。
 
@@ -109,6 +109,7 @@ knitr::kable(student_data, caption = "横長型の表")
 # Rの標準関数の`read.csv()`でも同様なことができます。
 
 definition <- readr::read_csv("analysis/data/definition_tidydata.csv")
+
 definition %>%
   knitr::kable(caption = "tidy dataの定義の変遷")
 ```
@@ -1143,9 +1144,4 @@ covid19_monthly %>%
                                    hjust = 1))  # x軸のラベルを45度回転させる 
 ```
 
-```{r eval=FALSE, include=FALSE}
-# コンソールで以下のコマンドを入力
-bookdown::render_book("index.Rmd")
-```
 
-# 引用参考文献
