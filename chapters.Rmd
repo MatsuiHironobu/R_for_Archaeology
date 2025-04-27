@@ -1,15 +1,4 @@
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-library(tidyverse)
-library(here)
-library(flextable)
-
-```
-
-
 # 統計解析言語「R」
 
 ## 「R」とは
@@ -167,7 +156,7 @@ muraki2004_long %>% head() %>% knitr::kable(caption = "`tidyr::pivot_longer()`�
 ```
 
 
-```{r cross-hist, fig.cap='クロス集計表から再構成したヒストグラム'}
+```{r cross-hist, fig.cap='クロス集計表から再構成したヒストグラム', fig.path="analysis/figures/"}
 muraki2004_long %>%
   ggplot() +
   ggplot2::geom_histogram(aes(x = year_start, 
@@ -465,7 +454,7 @@ datasaurus_dozen %>%
   knitr::kable(caption = "概要表")
 ```
 
-```{r datasaurus-plot, echo=FALSE, fig.cap="可視化の重要性"}
+```{r datasaurus-plot, echo=FALSE, fig.cap="可視化の重要性", fig.path="analysis/figures/"}
 # 可視化
 datasaurus_dozen %>%
   ggplot2::ggplot(aes(x = x, y = y, colour = dataset)) +
@@ -497,7 +486,7 @@ library(systemfonts)
 fonts <- systemfonts::system_fonts()
 ```
 
-```{r fig.show="hold",out.width="48%"}
+```{r fig.show="hold",out.width="48%", fig.path="analysis/figures/"}
 # 基本となる背景を作成
 base <- data.frame(x = c(0, 1.5, 3), 
                    y = c(0, 1.5, 3),
@@ -540,7 +529,7 @@ base +
 [element_]:https://ggplot2.tidyverse.org/reference/element.html
 [theme-books]:https://ggplot2-book.org/themes
 
-```{r theme-plot, echo=FALSE, fig.show="hold", out.width="48%", fig.cap="`theme_*()`の表示例"}
+```{r theme-plot, echo=FALSE, fig.show="hold", out.width="48%", fig.cap="`theme_*()`の表示例", fig.path="analysis/figures/"}
 # デフォルト
 base + theme_gray(base_family = "HiraginoSans-W3") + labs(title = "default / theme_grey( )")
 
@@ -567,7 +556,7 @@ base + theme_void(base_family = "HiraginoSans-W3") + labs(title = "theme_void( )
 
 ```
 
-```{r theme-plot2, fig.cap="`theme()`の設定例"}
+```{r theme-plot2, fig.cap="`theme()`の設定例", fig.path="analysis/figures/"}
 # 基本のプロットに`theme()`を設定する
 base +
   labs(x = "x軸の名称を設定",
@@ -591,7 +580,7 @@ base +
   )
 ```
 
-```{r my-theme, fig.cap="`theme()`で好みの見た目に設定できる"}
+```{r my-theme, fig.cap="`theme()`で好みの見た目に設定できる", fig.path="analysis/figures/"}
 # `my_theme`に格納しておけば労力を省略できる。
 my_theme <- 
   theme(text = element_text(family = "HiraginoSans-W3",
@@ -638,7 +627,7 @@ base + my_theme
 
 [geom_histogram]:https://ggplot2.tidyverse.org/reference/geom_histogram.html
 
-```{r hist, fig.cap='geom_histogramのデフォルト表示', message=FALSE, warning=FALSE}
+```{r hist, fig.cap='geom_histogramのデフォルト表示', message=FALSE, warning=FALSE, fig.path="analysis/figures/"}
 hist <- fish %>%
   ggplot() +
   ggplot2::geom_histogram(aes(x = PML, y = after_stat(count)))
@@ -656,7 +645,7 @@ hist
 [facet_wrap]:https://ggplot2.tidyverse.org/reference/facet_wrap.html
 [facet_grid]:https://ggplot2.tidyverse.org/reference/facet_grid.html
 
-```{r hist2, fig.cap='`position = "stack"`での描写'}
+```{r hist2, fig.cap='`position = "stack"`での描写', fig.path="analysis/figures/"}
 hist_2 <- fish %>%
   dplyr::filter(Fish == "クロダイ属"  &
                   Direction == "左" & 
@@ -680,7 +669,7 @@ hist_2 <- fish %>%
 hist_2
 ```
 
-```{r hist3, fig.cap='`facet_weap()`の描写'}
+```{r hist3, fig.cap='`facet_weap()`の描写', fig.path="analysis/figures/"}
 hist_3 <- fish %>%
   dplyr::filter(Fish == "クロダイ属"  &
                   Direction == "左" & 
@@ -715,7 +704,7 @@ hist_3
 
 [ggplot_build]:https://ggplot2.tidyverse.org/reference/ggplot_build.html
 
-```{r hist-build, message=FALSE, warning=FALSE}
+```{r hist-build, message=FALSE, warning=FALSE, fig.path="analysis/figures/"}
 hist_info <- hist_3 %>% ggplot_build()
 hist_info_df <- data.frame(hist_info$data)
 
@@ -735,7 +724,7 @@ hist_info_df %>%
 
 [geom_bar]:https://ggplot2.tidyverse.org/reference/geom_bar.html
 
-```{r bar, fig.cap='geom_barのデフォルト表示'}
+```{r bar, fig.cap='geom_barのデフォルト表示', fig.path="analysis/figures/"}
 bar <- fish %>%
   dplyr::filter(Period %in% c("1期", "2期", "3期")) %>%
   ggplot() +
@@ -749,7 +738,7 @@ bar
 
 帯グラフを描写したい時も[`ggplot2::geom_bar()`][geom_bar]を使い、$y$軸いっぱいに引き伸ばす`position = "fill"`とパーセンテージで表示する`scale_y_continuous(labels = scales::percent)`を指定します。多くの場合は横方向が好ましいので`coord_flip()`も加えます。
 
-```{r bar2, fig.cap='帯グラフ'}
+```{r bar2, fig.cap='帯グラフ', fig.path="analysis/figures/"}
 band <- fish %>%
   dplyr::filter(Period %in% c("1期", "2期", "3期")) %>%
   ggplot2::ggplot() +
@@ -767,7 +756,7 @@ band
 
 割合の少ない項目は「その他」等にまとめた方が視認性が上がることが知られています。ここでは上位5つより下位の魚種を「その他」にまとめ、主要な捕獲対象となった魚種を調べます。
 
-```{r bar3, fig.cap='構成する種類をまとめた帯グラフ', message=FALSE}
+```{r bar3, fig.cap='構成する種類をまとめた帯グラフ', message=FALSE, fig.path="analysis/figures/"}
 #### ラベルを作成する ####
 # 魚種の出土数トップ9を抽出
 top5 <- fish %>%
@@ -814,7 +803,7 @@ band_2
 [`@ocean_fさんのQiita`]:https://qiita.com/ocean_f/items/2b7243e4e19231d27713
 
 
-```{r bar4, fig.cap='geom_bar_patternでの論文風の帯グラフ'}
+```{r bar4, fig.cap='geom_bar_patternでの論文風の帯グラフ', fig.path="analysis/figures/"}
 
 #### 時期毎の集計表を作成し、割り付けるラベルを作成 ####
 fish_summarize <- fish %>%
@@ -927,7 +916,7 @@ band_3 +
 なお、[`ggplot2`][ggplot2]では円グラフ専用の`geom_*()`関数はありませんが、[`ggplot2::geom_bar()`][geom_bar]を利用して作成することができます。
 
 
-```{r}
+```{r pie, fig.cap='円グラフ', fig.path="analysis/figures/"}
 fish_summarize %>% 
   dplyr::mutate(pct2 = pct * 100) %>%  # パーセンテージ表示するため
   ggplot2::ggplot() +
@@ -961,7 +950,7 @@ fish_summarize %>%
 
 [geom_boxplot]:https://ggplot2.tidyverse.org/reference/geom_boxplot.html?q=boxplot#null
 
-```{r}
+```{r box1, fig.cap='箱ひげ図', fig.path="analysis/figures/"}
 box <- fish %>%
   dplyr::filter(Fish == "クロダイ属"  &
                   Period %in% c("1期", "2期", "3期") &
@@ -997,7 +986,7 @@ box
 [ggforce]:https://ggforce.data-imaginist.com
 [geom_sina]:https://ggforce.data-imaginist.com/reference/geom_sina.html
 
-```{r violin, fig.cap="バイオリンプロット"}
+```{r violin, fig.cap="バイオリンプロット", fig.path="analysis/figures/"}
 #### バイオリンプロット ####
 violin <- fish %>%
   dplyr::filter(Fish == "クロダイ属"  &
@@ -1014,7 +1003,7 @@ violin <- fish %>%
 violin
 ```
 
-```{r sina, fig.show="hold", out.width="48%", fig.cap="ジッタープロット（左）とシナプロット（右）"}
+```{r sina, fig.show="hold", out.width="48%", fig.cap="ジッタープロット（左）とシナプロット（右）", fig.path="analysis/figures/"}
 #### ジッタープロット ####
 jitter <- fish %>%
   dplyr::filter(Fish == "クロダイ属"  &
@@ -1046,7 +1035,7 @@ sina
 ```
 
 
-```{r box-violin-sina, fig.cap="箱ひげ図と重ねて表示"}
+```{r box-violin-sina, fig.cap="箱ひげ図と重ねて表示", fig.path="analysis/figures/"}
 #### 箱ひげ図にバイオリンプロットとシナプロットを重ねる ####
 box_violin_sina <- fish %>%
   dplyr::filter(Fish == "クロダイ属"  &
@@ -1128,7 +1117,7 @@ covid19_monthly %>% head()
 
 ```
 
-```{r line, fig.cap="折れ線グラフ"}
+```{r line, fig.cap="折れ線グラフ", fig.path="analysis/figures/"}
 # 折れ線グラフを描写する。
 covid19_monthly %>%
   ggplot2::ggplot(aes(x = week_start,

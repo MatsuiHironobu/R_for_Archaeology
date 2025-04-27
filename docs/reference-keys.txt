@@ -20,6 +20,8 @@ fig:bar
 fig:bar2
 fig:bar3
 fig:bar4
+fig:pie
+fig:box1
 fig:violin
 fig:sina
 fig:box-violin-sina

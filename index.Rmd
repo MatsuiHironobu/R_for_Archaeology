@@ -6,6 +6,12 @@ site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
     df_print: kable
+    includes:
+      after_body: null
+    config:
+      output_dir: "docs"
+      copy_resources: 
+        - analysis/figures/*.png
 bibliography: "./analysis/templates/mylib.bib"
 csl: "./analysis/templates/apa.csl"
 ---
